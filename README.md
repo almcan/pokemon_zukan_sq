@@ -1,1 +1,44 @@
-# pokemon_zukan_sq
+# ポケモン図鑑画像スクレイパー (pokemon_zukan_sq)
+
+このプロジェクトは、公式のポケモン図鑑サイト (pokemon.co.jp) からポケモン画像を収集するためのPythonスクリプトです。サイトの内部APIを利用して画像URLを取得し、指定されたディレクトリに画像をダウンロードします。
+
+## 機能
+
+* 公式ポケモン図鑑の内部APIからポケモンデータのリストを取得します。
+* APIのページネーションを処理し、全てのポケモンの情報を取得します。
+* 各ポケモンの画像URL（SサイズまたはMサイズを選択可能）を抽出します。
+* 抽出したURLから画像をダウンロードし、ローカルの指定フォルダに保存します。
+* サーバーへの負荷を軽減するための待機時間を設けています。
+
+## 必要条件
+
+* Python 3.6 以上
+* `requests` ライブラリ
+
+## セットアップ
+
+1.  このリポジトリをクローンまたはダウンロードします。
+2.  必要なライブラリをインストールします（まだインストールしていない場合）。
+    ```bash
+    pip install requests
+    ```
+
+## 設定
+
+スクリプト (`zukan.py`) の冒頭部分には、動作をカスタマイズするための設定項目があります。
+
+```python
+# --- 設定項目 ---
+# APIのベースURL
+BASE_API_URL = "[https://zukan.pokemon.co.jp/zukan-api/api/search/](https://zukan.pokemon.co.jp/zukan-api/api/search/)"
+
+# 取得したい画像のタイプ ('image_s': 小さい画像, 'image_m': 少し大きい画像)
+IMAGE_KEY = 'image_s'
+
+# 画像を保存するフォルダ名
+SAVE_DIRECTORY = "pokemon_images"
+
+# 各リクエスト間の待機時間 (秒) - サーバー負荷軽減のため
+API_REQUEST_DELAY = 0.5  # APIへのリクエスト間の遅延
+IMAGE_DOWNLOAD_DELAY = 0.1 # 画像ダウンロード間の遅延
+# --- 設定項目ここまで ---
